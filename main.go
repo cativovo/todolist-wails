@@ -2,6 +2,9 @@ package main
 
 import (
 	"embed"
+	"os"
+	"todolist-wails/internal/storage"
+	"todolist-wails/internal/todo"
 
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
@@ -12,8 +15,20 @@ import (
 var assets embed.FS
 
 func main() {
+	file, fErr := os.OpenFile("./todos.json", os.O_CREATE|os.O_RDWR, 0644)
+	if fErr != nil {
+		panic(fErr)
+	}
+	defer file.Close()
+
+	jsonStorage, jErr := storage.NewJSONStorage(file)
+	if jErr != nil {
+		panic(jErr)
+	}
+	todoService := todo.NewTodoService(jsonStorage)
+
 	// Create an instance of the app structure
-	app := NewApp()
+	app := NewApp(todoService)
 
 	// Create application with options
 	err := wails.Run(&options.App{
@@ -29,7 +44,6 @@ func main() {
 			app,
 		},
 	})
-
 	if err != nil {
 		println("Error:", err.Error())
 	}
