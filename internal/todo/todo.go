@@ -11,8 +11,8 @@ type Todo struct {
 }
 
 type TodoUpdate struct {
-	UpdatedAt time.Time `json:"updated_at"`
-	ID        string    `json:"id"`
-	Title     *string   `json:"title"`
-	Completed *bool     `json:"completed"`
+	UpdatedAt *time.Time `json:"updated_at"`
+	ID        string     `json:"id"`
+	Title     *string    `json:"title"`
+	Completed *bool      `json:"completed"`
 }

@@ -67,7 +67,7 @@ func (j *JSONStorage) UpdateTodo(u todo.TodoUpdate) (todo.Todo, error) {
 	}
 
 	t := j.todos[i]
-	t.UpdatedAt = u.UpdatedAt
+	t.UpdatedAt = *u.UpdatedAt
 
 	if u.Completed != nil {
 		t.Completed = *u.Completed

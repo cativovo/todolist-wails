@@ -49,7 +49,8 @@ func (t *todoService) AddTodo(title string) (Todo, error) {
 }
 
 func (t *todoService) UpdateTodo(todo TodoUpdate) (Todo, error) {
-	todo.UpdatedAt = time.Now()
+	now := time.Now()
+	todo.UpdatedAt = &now
 	return t.repository.UpdateTodo(todo)
 }
 

@@ -32,6 +32,10 @@ func (a *App) AddTodo(title string) (todo.Todo, error) {
 	return a.todoService.AddTodo(title)
 }
 
+func (a *App) UpdateTodo(t todo.TodoUpdate) (todo.Todo, error) {
+	return a.todoService.UpdateTodo(t)
+}
+
 func (a *App) RemoveTodo(id string) error {
 	return a.todoService.RemoveTodo(id)
 }
